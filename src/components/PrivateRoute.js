@@ -1,16 +1,21 @@
-import React from 'react';
-import { useNavigate } from "react-router-dom";
-
-const PrivateRoute=(props)=>{
-    const navigate=useNavigate();
-   if(!window.localStorage.getItem("username") && !window.localStorage.getItem("password")){
-     navigate('/login')
-   }
-   else{
-    
-    return (
-        <>{props.children}</>
-    )
-   }
+import React from "react";
+import Login from "./Login"; 
+import { useHistory } from "react-router-dom";
+const PrivateRoute = (props)=>{
+    let history = useHistory();
+   
+     if(window.localStorage.getItem("username") && window.localStorage.getItem("password")){
+        return(
+            <>
+              {props.children}
+            </>
+        )
+     }else{
+        history.push("/login");
+        return(
+            <Login />
+        )
+     }
+   
 }
 export default PrivateRoute;
